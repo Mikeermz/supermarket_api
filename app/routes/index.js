@@ -13,6 +13,7 @@ const {
   getReceipt,
   deleteReceipt,
   updateReceipt,
+  createTotal,
 } = require('../controllers/receipt');
 
 const router = express.Router();
@@ -34,5 +35,6 @@ router.get('/receipts', getReceipts);
 router.get('/receipt/:id', getReceipt);
 router.delete('/receipt/:id', deleteReceipt);
 router.put('/receipt/:id', updateReceipt);
+router.get('/invoice/:id', createTotal);
 
 module.exports = router;

@@ -2,9 +2,9 @@ const Receipt = require('../models/Receipt');
 
 const createReceipt = async(data) => Receipt.create(data);
 
-const getAllReceipt = () => Receipt.find();
+const getAllReceipt = () => Receipt.find().populate('items');
 
-const getOneReceipt = (id) => Receipt.findById(id);
+const getOneReceipt = async(id) => Receipt.findById(id).populate('items').exec();
 
 const deleteOneReceipt = (id) => Receipt.findByIdAndDelete(id);
 

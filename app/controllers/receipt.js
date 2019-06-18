@@ -56,10 +56,23 @@ const updateReceipt = (req, res) => {
       ).catch((error) => res.status(400).send(error) )
 }
 
+const createTotal = async (req, res) => {
+  const ticketId = req.params.id;
+  let subtotal = 0, iva = 0, total = 0;
+
+  const receipt = await getOneReceipt(ticketId);
+  console.log(receipt);
+  res.status(200).json({
+    receipt,
+  })
+
+}
+
 module.exports = {
   ReceiptCreate,
   getReceipts,
   getReceipt,
   deleteReceipt,
   updateReceipt,
+  createTotal,
 }
