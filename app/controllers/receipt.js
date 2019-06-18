@@ -58,14 +58,23 @@ const updateReceipt = (req, res) => {
 
 const createTotal = async (req, res) => {
   const ticketId = req.params.id;
-  let subtotal = 0, iva = 0, total = 0;
+  let subtotal = 0, tax = 0, total = 0;
 
   const receipt = await getOneReceipt(ticketId);
-  console.log(receipt);
-  res.status(200).json({
-    receipt,
+  receipt.items.map( (item) => {
+    subtotal += item.price;
   })
-
+  tax = subtotal * 0.16;
+  total = subtotal + tax;
+  let data = {
+    subtotal,
+    tax,
+    total,
+  }
+  const totalReceipt = await updateOneReceipt(ticketId, data);
+  res.status(200).json({
+    totalReceipt,
+  })
 }
 
 module.exports = {
@@ -75,4 +84,8 @@ module.exports = {
   deleteReceipt,
   updateReceipt,
   createTotal,
+}
+
+const json = {
+  "item": ['5d006b8007720c557e78b6fa', '5d006b9a07720c557e78b6fb',]
 }
